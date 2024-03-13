@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.mirekgab.productionorder.material.Material;
 import pl.mirekgab.productionorder.material.MaterialRepository;
 import pl.mirekgab.productionorder.measureunit.MeasureUnitRepository;
 
@@ -63,10 +64,23 @@ public class MaterialUnitController {
 
     @GetMapping("/materials/{materialId}/unit/add")
     public String newMaterialUnit(Model model, @PathVariable Long materialId) {
+
+        Material material = materialRepository.findById(materialId).get();
+
         MaterialUnitDto dto = new MaterialUnitDto();
-        dto.setMaterialId(materialId);
+        dto.setMaterial(material);
         model.addAttribute("materialUnit", dto);
-        model.addAttribute("measureUnits", measureUnitRepository.findAll());
+        model.addAttribute("measureUnitList", measureUnitRepository.findAll());
         return "/material/unit/add";
+    }
+
+    @GetMapping("/materials/units/{materialUnitId}/delete")
+    public String deleteMaterialUnit(@PathVariable Long materialUnitId) {
+
+        MaterialUnit materialUnit = materialUnitRepository.findById(materialUnitId).get();
+
+        materialUnitRepository.deleteById(materialUnitId);
+
+        return "redirect:/materials/"+materialUnit.getMaterial().getId()+"/units/";
     }
 }

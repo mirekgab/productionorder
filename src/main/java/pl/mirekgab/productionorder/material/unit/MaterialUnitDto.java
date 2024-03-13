@@ -1,5 +1,7 @@
 package pl.mirekgab.productionorder.material.unit;
 
+import pl.mirekgab.productionorder.material.Material;
+
 public class MaterialUnitDto {
     private Long materialUnitId;
     private Long materialId;
@@ -72,5 +74,12 @@ public class MaterialUnitDto {
 
     public void setMaterialBaseMeasureUnitName(String materialBaseMeasureUnitName) {
         this.materialBaseMeasureUnitName = materialBaseMeasureUnitName;
+    }
+
+    public void setMaterial(Material material) {
+        this.materialId = material.getId();
+        this.materialName = material.getName();
+        this.materialBaseMeasureUnitId = material.getBaseMeasureUnit().getId();
+        this.materialBaseMeasureUnitName = material.getBaseMeasureUnit().getName();
     }
 }
