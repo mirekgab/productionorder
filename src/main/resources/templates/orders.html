@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The production orders</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a href="/">main menu</a>
+    <h1>List of the production orders</h1>
+    <br>
+    <a class="btn btn-primary" href="/orders/add">add new production order</a>
+    <table class="table mt-2">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>number</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.number}"></td>
+            <td><a th:href="@{/orders/edit/{id}(id=${order.id})}">edit</a></td>
+            <td><a th:href="@{/orders/details/{id}(id=${order.id})}">show</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Measure Units</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a href="/">main menu</a>
+    <h1>Measure units</h1>
+    <br>
+    <a class="btn btn-primary" href="/measure-units/add">add new unit</a>
+    <table class="table mt-2">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="measureUnit : ${measureUnits}">
+            <td th:text="${measureUnit.id}"></td>
+            <td th:text="${measureUnit.name}"></td>
+            <td><a th:href="@{/measure-units/edit/{id}(id=${measureUnit.id})}">edit</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

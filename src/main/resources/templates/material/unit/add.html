@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a th:href="@{/materials/{materialId}/units/(materialId=${materialUnit.materialId})}">list of materials</a>
+    <h1>Material</h1>
+    <form action="#"
+          th:action="@{/materials/units/create}"
+          th:object="${materialUnit}"
+          method="post">
+        <div class="mb-3 row">
+            <label for="id" class="col-2 form-label">material unit id</label>
+            <div class="col-10">
+                <input type="text" th:field="*{materialUnitId}" id="id" placeholder="id" readonly>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="materialId" class="col-2 form-label">material id</label>
+            <div class="col-10">
+                <input type="text" th:field="*{materialId}" id="materialId" placeholder="id" readonly>
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label for="dropDownList" class="form-label col-2">base measure unit</label>
+            <div class="col-10 ">
+                <div class="container ps-0">
+                    <select class="form-select ms-0" style="width:300px;" id="dropDownList"
+                            th:field="*{measureUnitId}">
+                        <option value="0">select unit</option>
+                        <option th:each="option : ${measureUnits}" th:value="${option.id}"
+                                th:text="${option.name}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label for="name" class="form-label col-2">factor</label>
+            <div class="col-10 ">
+                <input type="text" th:field="*{factor}" id="name" placeholder="Name">
+            </div>
+        </div>
+
+
+        <input type="submit" value="save" class="btn btn-primary">
+    </form>
+</div>
+</body>
+</html>

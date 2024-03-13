@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The production orders</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a href="/materials">list of materials</a>
+    <h1>List of the material units measure</h1>
+    <br>
+    material: <span th:text="${material.name}"></span>
+    <br/>
+    base measure unit: <span th:text="${material.baseMeasureUnit.name}"></span>
+    <hr/>
+    <a class="btn btn-primary" th:href="@{/materials/{materialId}/unit/add(materialId=${material.id})}">add new unit</a>
+    <table class="table mt-2">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>unit name</th>
+            <th>factor</th>
+            <th>&nbsp;</th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="materialUnit : ${materialUnitList}">
+            <td th:text="${materialUnit.id}"></td>
+            <td th:text="${materialUnit.measureUnit.name}"></td>
+            <td th:text="${materialUnit.factor}"></td>
+            <td><a th:href="@{/materials/units/{materialUnitId}/edit(materialUnitId=${materialUnit.id})}">edit</a></td>
+            <td><a th:href="@{/materials/units/{materialUnitId}/delete(materialUnitId=${materialUnit.id})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

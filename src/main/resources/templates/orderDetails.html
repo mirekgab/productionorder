@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order details</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-light">
+<div class="container">
+    <a href="/orders">the production orders list</a>
+    <h1>Order</h1>
+    <div class="mt-2 row">
+        <label for="id" class="col-sm-2">id</label>
+        <div class="col-sm-10">
+            <input type="text" th:field="${productionOrder.id}" id="id" placeholder="id" readonly>
+        </div>
+    </div>
+    <div class="mt-2 row">
+        <label for="name" class="col-sm-2">number</label>
+        <div class="col-sm-10">
+            <input type="text" th:field="${productionOrder.number}" id="name" placeholder="Name" readonly>
+        </div>
+    </div>
+    <hr/>
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablic">
+            <button class="nav-link active" id="nav-input-resources" data-bs-toggle="tab" data-bs-target="#input-resources" role="tab" aria-controls="nav-input-resources" aria-selected="true">Input resources</button>
+            <button class="nav-link" id="nav-output-resources" data-bs-toggle="tab" data-bs-target="#output-resources" role="tab" aria-controls="nav-output-resources" aria-selected="false">Output resources</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="input-resources" role="tabpanel" aria-labelledby="nav-input-resources">
+            <table class="table mt-1">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>quantity</th>
+                    <th>unit</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="inputResource: ${productionOrder.inputResources}">
+                    <td th:text="${inputResource.id}"></td>
+                    <td th:text="${inputResource.material.name}"></td>
+                    <td th:text="${inputResource.quantity}"></td>
+                    <td th:text="${inputResource.measureUnit.name}"></td>
+                    <td><a th:href="@{/orders/details/{orderId}/delete/{materialId}(orderId=${inputResource.productionOrder.id}, materialId=${inputResource.material.id})}">delete</a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="output-resources" role="tabpanel" aria-labelledby="nav-output-resources">
+            <table class="table mt-1">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>quantity</th>
+                    <th>unit</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="outputResource: ${productionOrder.outputResources}">
+                    <td th:text="${outputResource.id}"></td>
+                    <td th:text="${outputResource.product.name}"></td>
+                    <td th:text="${outputResource.quantity}"></td>
+                    <td th:text="${outputResource.measureUnit.name}"></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="/bootstrap.min.js"></script>
+</body>
+</html>

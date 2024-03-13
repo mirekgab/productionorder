@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a href="/materials">list of materials</a>
+    <h1>Material</h1>
+    <form action="#"
+          th:action="@{/materials/save}"
+          th:object="${material}"
+          method="post">
+        <div class="mb-3 row">
+            <label for="id" class="col-2 form-label">id</label>
+            <div class="col-10">
+                <input type="text" th:field="*{id}" id="id" placeholder="id" readonly>
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label for="name" class="form-label col-2">name</label>
+            <div class="col-10 ">
+                <input type="text" th:field="*{name}" id="name" placeholder="Name">
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label for="dropDownList" class="form-label col-2">base measure unit</label>
+            <div class="col-10 ">
+                <div class="container ps-0">
+                    <select class="form-select ms-0" style="width:300px;" id="dropDownList"
+                            th:field="*{baseMeasureUnit.id}">
+                        <option value="0">select unit</option>
+                        <option th:each="option : ${measureUnitList}" th:value="${option.id}"
+                                th:text="${option.name}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="save" class="btn btn-primary">
+    </form>
+</div>
+</body>
+</html>

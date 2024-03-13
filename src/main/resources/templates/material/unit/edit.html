@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body class="bg-body">
+<div class="container">
+    <a th:href="@{/materials/{materialId}/units/(materialId=${materialUnit.materialId})}">list of materials</a>
+    <h1>Material</h1>
+    <form action="#"
+          method="post"
+          th:action="@{/materials/units/save}"
+          th:object="${materialUnit}">
+
+        <div class="mb-3 row">
+            <label class="col-3 form-label" for="materialId">material id</label>
+            <div class="col-9">
+                <input id="materialId" placeholder="id" readonly th:field="*{materialId}" type="text">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-3 form-label" for="materialName">material name</label>
+            <div class="col-9">
+                <input id="materialName" placeholder="id" readonly th:field="*{materialName}" type="text">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-3 form-label" for="materialBaseMeasureUnitId">base measure unit id</label>
+            <div class="col-9">
+                <input id="materialBaseMeasureUnitId" placeholder="id" readonly
+                       th:field="*{materialBaseMeasureUnitId}" type="text">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label class="col-3 form-label" for="materialBaseMeasureUnitName">base measure unit name</label>
+            <div class="col-9">
+                <input id="materialBaseMeasureUnitName" placeholder="id" readonly
+                       th:field="*{materialBaseMeasureUnitName}" type="text">
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="mb-3 row">
+            <label class="col-3 form-label" for="id">unit id</label>
+            <div class="col-9">
+                <input id="id" placeholder="id" readonly th:field="*{materialUnitId}" type="text">
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label class="form-label col-3" for="unitName">unit name</label>
+            <div class="col-9 ">
+                <input id="unitName" readonly th:field="*{unitName}" type="text">
+            </div>
+        </div>
+
+        <div class="mb-3 row ">
+            <label class="form-label col-3" for="factor">factor</label>
+            <div class="col-9 ">
+                <input id="factor" placeholder="Name" th:field="*{factor}" type="number" min="0.1" step="0.1" onchange="javascript:calculate()">
+            </div>
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="save">
+    </form>
+    <hr>
+    <div class="mb-3">
+        Description: quantity in base measure unit = quantity in measure unit * factor
+        <br/>
+        Examples:
+        <br/>
+        <input type="number" id="exampleQuantityBaseMeasureUnit" value="1" size="3" step="1" min="1" onchange="javascript:calculate()">
+        <input type="text" readonly th:value="${materialUnit.materialBaseMeasureUnitName}">
+        =
+        <input type="number" id="exampleOutputValue" size="8" readonly>
+        <input type="text" readonly th:value="${materialUnit.unitName}">
+    </div>
+</div>
+<script>
+    function calculate() {
+        let inputValue = document.getElementById("exampleQuantityBaseMeasureUnit").value;
+        let factor = document.getElementById("factor").value;
+        let outputValue = (inputValue / factor).toFixed(4);
+        document.getElementById("exampleOutputValue").value = outputValue;
+    }
+
+    (function() {
+        calculate();
+    })();
+
+</script>
+</body>
+</html>
